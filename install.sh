@@ -15,8 +15,10 @@ sudo DEBIAN_FRONTEND=noninteractive apt full-upgrade -yq
 arch=$(uname -m)
 if [[ "$arch" == "x86_64" ]]; then
     ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.37.0/kubo_v0.37.0_linux-amd64.tar.gz"
+    yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-amd64.deb"
 elif [[ "$arch" == "aarch64" ]]; then
     ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.37.0/kubo_v0.37.0_linux-arm64.tar.gz"
+    yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-arm64.deb"
 elif [[ "$arch" == "riscv64" ]]; then
     ipfsdistr="URL_for_riscv64"
 else
@@ -131,10 +133,18 @@ sudo ufw allow 22
 sudo ufw allow from 200::/7
 sudo ufw enable
 
+str=$(ipfs id) && echo $str | cut -c10-61 > $PWD/data/id.txt
+wget -O temp/ygg.deb $yggdistr
+sudo dpkg -i temp/ygg.deb
+sudo sed -i "s/  Peers: \[\]/  Peers: \[\n    tls:\/\/ip4.01.msk.ru.dioni.su:9003\n  \]/g" /etc/yggdrasil/yggdrasil.conf
+sudo sed -i "s/  NodeInfo: {}/  NodeInfo: {\n    name: znano$(cat $PWD/data/id.txt)\n}/g" /etc/yggdrasil/yggdrasil.conf
+sudo systemctl restart yggdrasil
+sudo systemctl enable yggdrasil
+ping -6 -c 5 21e:a51c:885b:7db0:166e:927:98cd:d186
+
 cd $ZNANO
 rm -rf temp
 mkdir temp
-str=$(ipfs id) && echo $str | cut -c10-61 > $PWD/data/id.txt
 (echo -n "$(date -u) Znano system is installed. ID=" && cat $PWD/data/id.txt) >> $PWD/data/log.txt
 ipfspub 'Initial message'
 ipfs pubsub pub znano $PWD/data/log.txt
