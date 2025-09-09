@@ -70,7 +70,7 @@ Type=simple\n\
 User=$USER\n\
 Group=$USER\n\
 Environment=IPFS_PATH=$PWD/data/.ipfs\n\
-ExecStart=/usr/local/bin/ipfs daemon --enable-gc --mount --migrate=true --enable-pubsub-experiment\n\
+ExecStart=/usr/local/bin/ipfs daemon --enable-gc --mount --migrate=true\n\
 Restart=on-failure\n\
 KillSignal=SIGINT\n\
 \n\
