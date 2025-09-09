@@ -140,6 +140,7 @@ sudo sed -i "s/  Peers: \[\]/  Peers: \[\n    tls:\/\/ip4.01.msk.ru.dioni.su:900
 sudo sed -i "s/  NodeInfo: {}/  NodeInfo: {\n    name: znano$(cat $PWD/data/id.txt)\n}/g" /etc/yggdrasil/yggdrasil.conf
 sudo systemctl restart yggdrasil
 sudo systemctl enable yggdrasil
+sudo chmod u+s $(which ping)
 ping -6 -c 5 21e:a51c:885b:7db0:166e:927:98cd:d186
 
 cd $ZNANO
