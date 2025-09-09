@@ -131,7 +131,7 @@ sudo ufw disable
 sudo ufw default deny incoming
 sudo ufw allow 22
 sudo ufw allow from 200::/7
-sudo ufw enable
+yes | sudo ufw enable
 
 str=$(ipfs id) && echo $str | cut -c10-61 > $PWD/data/id.txt
 wget -O temp/ygg.deb $yggdistr
