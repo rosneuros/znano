@@ -9,5 +9,10 @@ if [ "$(date -u '+%H')" = "00" ] && [ "$(date -u '+%M')" = "00" ]; then
     ipfspub $hash
 fi
 if [ "$(date -u '+%M')" = "00" ] || [ "$(date -u '+%M')" = "30" ]; then
-ipfspub 'Ok!'
+    for dir in apps/*/; do
+      if [ -f "$dir/min30.sh" ]; then
+        bash "$dir/min30.sh"
+      fi
+    done
+    ipfspub 'Ok!'
 fi
