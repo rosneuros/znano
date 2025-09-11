@@ -134,6 +134,7 @@ cat /ipfs/QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
 sudo ufw disable
 sudo ufw default deny incoming
 sudo ufw allow 22
+sudo ufw allow 9001
 sudo ufw allow from 200::/7
 yes | sudo ufw enable
 
