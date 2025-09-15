@@ -4,7 +4,7 @@ Znano - Custom News Server / Знано - Отборных Новостей Се
 
 ### Requirements
 
-x86_64/ARM64/RiscV64; Ubuntu 24.04; 2Core; 4GB RAM; 120GB SSD; 10Mbps WAN
+x86_64/ARM64; Ubuntu 24.04; 2Core; 4GB RAM; 120GB SSD; 10Mbps WAN
 
 ### Installation
 
