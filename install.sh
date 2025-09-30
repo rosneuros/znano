@@ -37,7 +37,7 @@ export PATH="$PATH:/home/$USER/.local/bin:$PWD/bin"
 export ZNANO="$PWD"
 export IPFS_PATH="$PWD/data/.ipfs"
 echo -e "PATH=$PATH\nZNANO=$PWD\nIPFS_PATH=$IPFS_PATH\n$(sudo crontab -l)\n" | sudo crontab -
-sudo DEBIAN_FRONTEND=noninteractive apt install -y docker.io docker-compose-v2 build-essential python3-dev python3-pip python3-venv tmux links2 cron
+sudo DEBIAN_FRONTEND=noninteractive apt install -y docker.io docker-compose-v2 build-essential python3-dev python3-pip python3-venv tmux links2 cron ufw
 sudo usermod -aG docker $USER
 sudo systemctl restart docker
 python3 -m venv venv
