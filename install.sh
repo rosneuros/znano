@@ -171,7 +171,7 @@ chmod +x ZeroNet/runtime/bin/openssl
 chmod +x ZeroNet/runtime/bin/python3
 mv ZeroNet/core/plugins/disabled-UiPassword ZeroNet/core/plugins/UiPassword
 
-sudo npm i -g playwright
+npm i playwright
 npx playwright install
 sudo npx playwright install-deps
 echo "
