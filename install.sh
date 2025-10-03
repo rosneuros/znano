@@ -171,6 +171,29 @@ chmod +x ZeroNet/runtime/bin/openssl
 chmod +x ZeroNet/runtime/bin/python3
 mv ZeroNet/core/plugins/disabled-UiPassword ZeroNet/core/plugins/UiPassword
 
+sudo npm i -g playwright
+npx playwright install
+sudo npx playwright install-deps
+echo "
+const { chromium } = require('playwright');
+
+(async () => {
+  const url = process.argv[2];  // получить URL из аргументов
+  if (!url) {
+    console.error('Usage: node get_page.js <url>');
+    process.exit(1);
+  }
+  const browser = await chromium.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.goto(url);
+  const content = await page.content();
+  console.log(content);
+  await browser.close();
+})();" > getpage.js
+
+node getpage.js http://example.com > example.html
+
+
 cd $ZNANO
 rm -rf temp
 mkdir temp
