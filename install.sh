@@ -153,6 +153,24 @@ wget -O temp/monolith $monolithdistr
 sudo chmod +x temp/monolith
 sudo mv temp/monolith /usr/local/bin/
 
+unzip bin/"Zeroseed pack 2.0-linux.zip"
+mv "Zeroseed pack 2.0-linux/ZeroNet-linux" ZeroNet
+rmdir "Zeroseed pack 2.0-linux"
+yggIP=$(ip -6 -o addr show tun0 | awk '{split($4,a,"/"); print a[1]; exit}')
+pass=$(head -c 100 /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 16)
+echo $pass > data/pass
+echo "
+ui_ip = $yggIP
+ui_port = 43110
+ui_host = [$yggIP]:43110
+size_limit = 100
+ui_password = $pass
+" >> ZeroNet/zeronet.conf
+chmod +x ZeroNet/ZeroNet.sh
+chmod +x ZeroNet/runtime/bin/openssl
+chmod +x ZeroNet/runtime/bin/python3
+mv ZeroNet/core/plugins/disabled-UiPassword ZeroNet/core/plugins/UiPassword
+
 cd $ZNANO
 rm -rf temp
 mkdir temp
@@ -160,4 +178,5 @@ mkdir temp
 ipfspub 'Initial message'
 ipfs pubsub pub znano $PWD/data/log.txt
 sleep 9
+echo "Get password in data/pass file"
 sudo reboot
