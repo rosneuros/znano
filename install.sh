@@ -115,7 +115,7 @@ sudo systemctl enable ipfssub
 sudo systemctl restart ipfssub
 sleep 9
 
-echo -e "$(sudo crontab -l)\n@reboot su $USER -c \"bash $PWD/ZeroNet/ZeroNet.sh &\"; echo \"\$(date -u) System is rebooted\" >> $PWD/data/log.txt\n* * * * * su $USER -c \"bash $PWD/bin/cron.sh\"" | sudo crontab -
+echo -e "$(sudo crontab -l)\n@reboot echo \"\$(date -u) System is rebooted\" >> $PWD/data/log.txt\n* * * * * su $USER -c \"bash $PWD/bin/cron.sh\"" | sudo crontab -
 
 sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt install -y ca-certificates curl gnupg
 sudo rm /etc/apt/keyrings/nodesource.gpg
@@ -153,24 +153,6 @@ wget -O temp/monolith $monolithdistr
 sudo chmod +x temp/monolith
 sudo mv temp/monolith /usr/local/bin/
 
-unzip bin/"Zeroseed pack 2.0-linux.zip"
-mv "Zeroseed pack 2.0-linux/ZeroNet-linux" ZeroNet
-rmdir "Zeroseed pack 2.0-linux"
-yggIP=$(ip -6 -o addr show tun0 | awk '{split($4,a,"/"); print a[1]; exit}')
-pass=$(head -c 100 /dev/urandom | tr -dc 'A-Za-z0-9' | head -c 16)
-echo $pass > data/pass
-echo "
-ui_ip = $yggIP
-ui_port = 43110
-ui_host = [$yggIP]:43110
-size_limit = 100
-ui_password = $pass
-" >> ZeroNet/zeronet.conf
-chmod +x ZeroNet/ZeroNet.sh
-chmod +x ZeroNet/runtime/bin/openssl
-chmod +x ZeroNet/runtime/bin/python3
-mv ZeroNet/core/plugins/disabled-UiPassword ZeroNet/core/plugins/UiPassword
-
 npm i playwright
 npx playwright install
 sudo npx playwright install-deps
@@ -178,7 +160,7 @@ echo "
 const { chromium } = require('playwright');
 
 (async () => {
-  const url = process.argv[2];  // получить URL из аргументов
+  const url = process.argv[2];
   if (!url) {
     console.error('Usage: node get_page.js <url>');
     process.exit(1);
@@ -191,7 +173,7 @@ const { chromium } = require('playwright');
   await browser.close();
 })();" > getpage.js
 
-node getpage.js http://example.com > example.html
+node getpage.js http://example.com
 
 
 cd $ZNANO
