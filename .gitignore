@@ -4,4 +4,7 @@
 /bin
 /apps
 /venv
-/ZeroNet
+/node_modules
+package-lock.json
+package.json
+getpage.js
