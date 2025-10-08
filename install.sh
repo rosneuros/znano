@@ -183,5 +183,4 @@ mkdir temp
 ipfspub 'Initial message'
 ipfs pubsub pub znano $PWD/data/log.txt
 sleep 9
-echo "Get password in data/pass file"
 sudo reboot
