@@ -14,12 +14,12 @@ sudo DEBIAN_FRONTEND=noninteractive apt full-upgrade -yq
 
 arch=$(uname -m)
 if [[ "$arch" == "x86_64" ]]; then
-    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.38.1/kubo_v0.38.2_linux-amd64.tar.gz"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.38.2/kubo_v0.38.2_linux-amd64.tar.gz"
     yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-amd64.deb"
     monolithdistr="https://github.com/Y2Z/monolith/releases/download/v2.10.1/monolith-gnu-linux-x86_64"
     libssl1="bin/libssl1.1_1.1.1w-0+deb11u3_amd64.deb"
 elif [[ "$arch" == "aarch64" ]]; then
-    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.38.1/kubo_v0.38.2_linux-arm64.tar.gz"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.38.2/kubo_v0.38.2_linux-arm64.tar.gz"
     yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-arm64.deb"
     monolithdistr="https://github.com/Y2Z/monolith/releases/download/v2.10.1/monolith-gnu-linux-aarch64"
     libssl1="bin/libssl1.1_1.1.1w-0+deb11u3_arm64.deb"
