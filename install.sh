@@ -24,7 +24,7 @@ elif [[ "$arch" == "aarch64" ]]; then
     monolithdistr="https://github.com/Y2Z/monolith/releases/download/v2.10.1/monolith-gnu-linux-aarch64"
     libssl1="bin/libssl1.1_1.1.1w-0+deb11u3_arm64.deb"
 elif [[ "$arch" == "riscv64" ]]; then
-    ipfsdistr="URL_for_riscv64"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.38.2/kubo_v0.38.2_linux-riscv64.tar.gz"
 else
     echo "Unsupported architecture: $arch"
     exit 1
