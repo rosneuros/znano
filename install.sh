@@ -127,7 +127,7 @@ sudo apt-get update && sudo apt-get install nodejs -y
 node -v
 npm -v
 
-echo -n "\n\nIPFS status:"
+echo -n -e "\n\nIPFS status:"
 ipfs cat QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
 echo -n "IPFSmount status:"
 cat /ipfs/QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
