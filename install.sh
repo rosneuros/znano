@@ -74,7 +74,7 @@ Type=simple\n\
 User=$USER\n\
 Group=$USER\n\
 Environment=IPFS_PATH=$PWD/data/.ipfs\n\
-ExecStart=/usr/local/bin/ipfs daemon --enable-gc --migrate=true\n\
+ExecStart=/usr/local/bin/ipfs daemon --enable-gc --mount --migrate=true\n\
 Restart=on-failure\n\
 KillSignal=SIGINT\n\
 \n\
@@ -84,38 +84,6 @@ WantedBy=default.target\n\
 sudo systemctl daemon-reload
 sudo systemctl enable ipfs
 sudo systemctl restart ipfs
-
-export IPFS_PATH="$PWD/.ipfs"
-ipfs init --profile server
-ipfs config --json Experimental.FilestoreEnabled true
-ipfs config --json Pubsub.Enabled true
-ipfs config --json Ipns.UsePubsub true
-ipfs config profile apply lowpower
-
-echo -e "\
-[Unit]\n\
-Description=IPFS mount\n\
-Documentation=https://docs.ipfs.tech/\n\
-After=network.target\n\
-\n\
-[Service]\n\
-MemorySwapMax=0\n\
-TimeoutStartSec=infinity\n\
-Type=simple\n\
-User=$USER\n\
-Group=$USER\n\
-Environment=IPFS_PATH=$PWD/.ipfs\n\
-ExecStart=/usr/local/bin/ipfs daemon --enable-gc --mount --migrate=true\n\
-Restart=on-failure\n\
-KillSignal=SIGINT\n\
-\n\
-[Install]\n\
-WantedBy=default.target\n\
-" | sudo tee /etc/systemd/system/ipfsmount.service
-sudo systemctl daemon-reload
-sudo systemctl enable ipfsmount
-sudo systemctl restart ipfsmount
-export IPFS_PATH="$PWD/data/.ipfs"
 
 cat <<EOF >>$PWD/bin/ipfssub.sh
 #!/usr/bin/env bash
@@ -159,7 +127,7 @@ sudo apt-get update && sudo apt-get install nodejs -y
 node -v
 npm -v
 
-echo -n "IPFS status:"
+echo -n "\n\nIPFS status:"
 ipfs cat QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
 echo -n "IPFSmount status:"
 cat /ipfs/QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
